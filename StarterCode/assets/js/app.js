@@ -46,7 +46,7 @@ var abbr = statedata.map(data => data.abbr);
 console.log("Abbreviations", abbr);
 //parse data as numbers
 statedata.forEach(function(data){
-  data.healthcare = +data.healthcare;
+  data.age = +data.age;
   data.smokes = +data.smokes;
 }
 );
@@ -58,7 +58,7 @@ statedata.forEach(function(data){
     .range([0, width]);
 
   var yLinearScale = d3.scaleLinear()
-    .domain([0, d3.max(statedata, d => d.healthcare)])
+    .domain([25, d3.max(statedata, d => d.age)])
     .range([height, 0]);
 
 //axis
@@ -79,7 +79,7 @@ statedata.forEach(function(data){
       .enter()
       .append("circle")
       .attr("cx", d => xLinearScale(d.smokes))
-      .attr("cy", d => yLinearScale(d.healthcare))
+      .attr("cy", d => yLinearScale(d.age))
       .attr("r", "20")
       .attr("fill", "cyan")
       .attr("opacity", ".5");
@@ -91,7 +91,7 @@ statedata.forEach(function(data){
       .append("text")
       .text((d) => (d.abbr))
       .attr("x", d => xLinearScale(d.smokes)-8)
-      .attr("y", d => yLinearScale(d.healthcare)+ 6);
+      .attr("y", d => yLinearScale(d.age)+ 6);
       console.log("abbr", abbr);
   // Create axes labels
   chartGroup.append("text")
@@ -101,7 +101,7 @@ statedata.forEach(function(data){
       .attr("x", 0 - (height / 2))
       .attr("dy", "1em")
       .attr("class", "axisText")
-      .text("Healthcare");
+      .text("Age");
   
   chartGroup.append("text")
     .attr("transform", `translate(${width / 2}, ${height + margin.top + 10})`)
